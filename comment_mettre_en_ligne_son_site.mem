@@ -40,3 +40,24 @@ Etapes pour finaliser la configuration de notre site en https et utilisation d u
    1.1: Il existe plusieurs type de certificats SSL, certains gratuits, d'autre vérifie plus d'informations sur le proprietaire du site mais sont payant. Ici nous
    installer le certificats gratuit "basique"
    1.2: Certbot est un logiciel permettant de demander, et d'installer un certificat SSL gratuit pour notre site web (sans utilisations de carte bleues possible et pour   un seul nom de domaine). Instructions sur certbot.eff.org
+2: Obtenir un nom de domaine
+  2.1: Les noms de domaines sont achetable directement depuis internet, les prix varient selon les vendeurs, "amen" semble etre le moin cher
+  2.2: Une fois le nom de domaine acheté, il faut parametrer (facilement depuis un hebergeur en ligne) le DNS afin qu'il fasse corespondre l'IP du serveur au nom de domaine
+
+Maintenant il faut creer un environement de travail, sécurisé pour commencer le developpement du site. Github, SSH, GPG
+Etapes pour configurer l'envireonement de travail
+1: Repository en ligne, github
+  1.1: Github et son outil "git" est très pratique pour versionner les projets, diviser le projets en parties, et github.com offre enormement d'outils utile au developement
+  1.2: Il faut donc creer son repository sur githhub.com et installer git sur la machine client.
+  1.3: Maintenant il faut creer une paire de clefs ssh, qui vont nous permettre de nous octroyer les droits de lire et ecrire sur github.com.
+  "ssh-keygen -t ed25519 -C "your_email@example.com"", puis renomer les clefs creent en "mv /home/user/.ssh/id_ed25519 [path]/id_repoName".
+  1.4: Pour ajouter la clefs il faut "eval $(ssh-agent); ssh-add id_repoName".
+  1.5: Sur github.com se rendre sur la page de parametrage du repository, et aller dans sécurité=>Deploy keys, et la copier coller le contenus de id_repoName.pub et cocher la case "allow write acces"
+  1.6: Sur la machine client nous allons creer un dossier contenant notre site "mkdir site" puis initialiser ce dossier en tant que repo git
+    "cd site; git init", git peut demander des informations supplementaires tel que l'addresse email.
+  1.7: Il faut relier ce dossier a celui sur github.com avec "git remote add origin git@github.com:[user]/[repoName]"
+  1.8: Et maintenant une commande "git push origin master" devrait envoyer nos fichiers sur le repository github.com.
+2. Recuperer les fichiers depuis le serveur
+  1.1: Nous allons recuperer le repository depuis le serveur.
+  1.2: Memes manipulation pour creer les paires de clefs ssh, sauf que cette fois le serveur etant "non sécurisé", nous allons encrypter la clefs privé avec gpg.
+  "gpg --gen-key" "gpg --encrypt --recipient 'Your Name' foo.txt" et pour decrypter "gpg --output foo.text --decrypt foo.text.gpg"
