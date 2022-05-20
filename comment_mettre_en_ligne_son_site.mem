@@ -1,0 +1,42 @@
+Etapes pour creer, se connecter et envoyer des fichiers sur un serveur distant
+
+1: Installer linux sur une machine connectée a internet
+   1.1: On peut passer par un serveur privé
+   1.2: On peut passer par un serveur cloud/Vps
+2: Methode de connexion sécurisée, il faut ajouter sa clefs publique ssh dans le fichier texte : /home/[username]/.ssh/authorized_keys
+   2.1: Sur la machine client ajouter sa clefs privé : eval$(ssh-agent)
+   2.2: Toujours sur le Client executer la commande ssh-add /home/[username]/.ssh/id_rsa
+   2.3: La connexion au serveur est possible grace a la commande ssh [username]@[ip]
+3: Transferer les fichiers du site sur le serveur
+   3.1: Scp est un protocole sécurisé fonctionant avec clefs ssh présent de base sur la pluspart des OS linux
+   3.2: scp [localpath] [username]@[ip]:[remotePath]
+
+(Mon serveur contient pour l'instant une instalation basique de debian 11, un user debian, un user root. Ma config : Archlinux des plus basique.
+J'ai uploadé un fichier index.html, et je vais maintenant essayer d'acceder a cette page depuis un navigateur.
+Sans serveur Web le navigateur demande au serveur la permission de lire la page index.html sur le port 80 mais, le serveur ne peut pas repondre)
+
+Etapes pour rendre son serveur distant ouvert au monde (LAMP Linux Apache MySql Php)
+
+On a deja réalisé la première étape qui est le L, nous allons voir comment choisir et installer les applications necessaire a la mise en ligne d'un site
+1: Installer un serveur web
+   1.1: C'est l'outil qui va permettre d'envoyer et de recevoir des reponses distante
+   1.2: Apache et nginx sont les deux serveurs web les plus connus
+   1.3: Pour installer apache executer la commande sudo apt-get install apache2. Puis sudo systemctl enable apache2.service
+   1.4: Apres cette manipulation, en tapant l'addresse ip du serveur dans une barre de recherche de navigateur on accede a la page d'accueil d'apache !
+	Il suffit maintenant de remplacer cette page d'accueil par la notre et tadaa notre site web est en ligne.
+   1.5: Pour uploader des fichiers sur le serveur il faut tout d'abord executer la commande sudo chown -R $USER:$USER /var/www
+2: Rendre le site dynamique
+   2.1: Notre serveur heberge notre site, affiche nos pages html et css ! On peut lui envoyer des fichiers depuis a peu pres n'importe quelle connexion internet
+        Du moment que l'on possede une paire de clefs ssh et un terminal. Maintenant nous allons ajouter un serveur Php, un serveur mySql, et Php-mySql qui
+        permet la discution avec la base de donnée depuis nos pages.
+   2.2: La commande a executer pour ça est : sudo apt-get install php php-mysql default-mysql-serveur
+
+
+Le site est en ligne, avec une base de donnée, un serveur web, un interpreteur de Php, Cependant ce n'est pas pratiques pour nos utilisateurs 
+de devoir taper l'adresse exacte du site pour y acceder. Ce n'est pas non plus rassurant pour l utilisateur de voir un gros cadenas rouge barré avec ecrit
+"non sécurisé" sur le site.
+Etapes pour finaliser la configuration de notre site en https et utilisation d un alias d ip (nom de domaine)
+1: Obtenir un certificat SSL
+   1.1: Il existe plusieurs type de certificats SSL, certains gratuits, d'autre vérifie plus d'informations sur le proprietaire du site mais sont payant. Ici nous
+   installer le certificats gratuit "basique"
+   1.2: Certbot est un logiciel permettant de demander, et d'installer un certificat SSL gratuit pour notre site web (sans utilisations de carte bleues possible et pour   un seul nom de domaine). Instructions sur certbot.eff.org
