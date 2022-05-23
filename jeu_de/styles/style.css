@@ -1,0 +1,95 @@
+@font-face {
+  font-family: "Lato regular";
+  src: url("../fonts/Lato-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Lato light";
+  src: url("../fonts/Lato-Light.ttf");
+}
+
+main {
+  background: linear-gradient(#ea8546, #4f270d);
+  font-family: "Lato light", serif;
+}
+
+.P-board {
+  height: 100%;
+  width: 50%;
+}
+
+.P1-board {
+  background: #d7d7d7;
+}
+
+.P2-board {
+  background: #fff;
+}
+
+.P-name-container {
+  top: 20%;
+}
+
+.P-name {
+  font-size: xxx-large;
+}
+
+.P-name-unactive::after {
+  content: url("../images/p-led-unactive.svg");
+  position: relative;
+  bottom: 6px;
+}
+
+.P-name-active::after {
+  content: url("../images/p-led-active.svg");
+  position: relative;
+  bottom: 6px;
+}
+
+.total-score {
+  font-size: 4rem;
+}
+
+.current-container {
+  top: 35vh;
+}
+
+.current-text {
+  padding-top: 10px;
+}
+
+.current-score {
+  color: white;
+  font-size: 3rem;
+}
+
+.game-buttons {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.icon-button {
+  height: 32px;
+}
+
+.next-icon {
+  top: 3px;
+  position: relative;
+}
+
+.dice {
+  height: 150px;
+}
+
+.new-game-container {
+  top: -20vh;
+}
+
+.holdnroll-buttons {
+  bottom: -10vh;
+}
+
+.hold-container {
+  right: -1vw;
+}
