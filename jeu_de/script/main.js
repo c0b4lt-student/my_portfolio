@@ -42,7 +42,7 @@ $(document).ready(() => {
   }
 
   function changeDiceImg(number) { //load another img for dice
-    $(`#dice-img`).attr(`src`, `../images/dice/dice_${number}.png`);// Change src attribute based on number
+    $(`#dice-img`).attr(`src`, `./images/dice/dice_${number}.png`);// Change src attribute based on number
   }
 
   function newGame() { // Init a new game
